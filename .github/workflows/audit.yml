@@ -1,0 +1,43 @@
+name: Platform audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  network:
+    name: Network (VPC overlaps)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check VPC ranges in Terraform
+        uses: JayKearney/infradoctor@v1
+        with:
+          args: network check terraform/
+
+  services:
+    name: Services (versions and dependencies)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build service inventory from Helm values
+        id: inventory
+        run: bash scripts/build-inventory.sh services.yaml
+
+      - name: Version drift
+        uses: JayKearney/infradoctor@v1
+        with:
+          args: versions services.yaml
+
+      - name: Dependencies
+        if: ${{ !cancelled() && steps.inventory.outcome == 'success' }}
+        uses: JayKearney/infradoctor@v1
+        with:
+          args: deps services.yaml

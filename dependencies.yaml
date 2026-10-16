@@ -1,0 +1,10 @@
+# Which service depends on which.
+# Stand-in for the Backstage catalog (spec.dependsOn) until infradoctor can read it directly.
+frontend: [api-gateway]
+api-gateway: [auth, orders]
+auth: [postgres, redis]
+orders: [postgres, kafka]
+notifications: [kafka]
+postgres: []
+redis: []
+kafka: []
