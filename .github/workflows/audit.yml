@@ -1,3 +1,4 @@
+cat > .github/workflows/audit.yml <<'EOF'
 name: Platform audit
 
 on:
@@ -19,7 +20,7 @@ jobs:
       - name: Check VPC ranges in Terraform
         uses: JayKearney/infradoctor@v1
         with:
-          args: network check terraform/
+          args: network check terraform/ --known terraform/known-ranges.txt
 
   services:
     name: Services (versions and dependencies)
@@ -41,3 +42,4 @@ jobs:
         uses: JayKearney/infradoctor@v1
         with:
           args: deps services.yaml
+EOF
