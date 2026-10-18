@@ -1,6 +1,4 @@
-cat > terraform/known-ranges.txt <<'EOF'
 # Ranges in use outside this repo. New VPCs here must not overlap them.
 # name                 cidr
 data-team-account      10.20.0.0/16
 office-vpn             192.168.0.0/16
-EOF
