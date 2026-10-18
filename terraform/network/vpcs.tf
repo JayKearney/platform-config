@@ -7,15 +7,22 @@ resource "aws_vpc" "prod" {
   tags                 = { Name = "prod" }
 }
 
-resource "aws_vpc_ipv4_cidr_block_association" "prod_pods" {
+# Extra range for EKS pod IPs. The same range is reused in every cluster VPC on
+# purpose: pod IPs are never routed outside their own VPC.
+resource "aws_vpc_ipv4_cidr_block_association" "prod_pods" { # infradoctor: allow-overlap
   vpc_id     = aws_vpc.prod.id
-  cidr_block = "100.64.0.0/16" # extra range for EKS pod IPs
+  cidr_block = "100.64.0.0/16"
 }
 
 resource "aws_vpc" "staging" {
   cidr_block           = "10.1.0.0/16"
   enable_dns_hostnames = true
   tags                 = { Name = "staging" }
+}
+
+resource "aws_vpc_ipv4_cidr_block_association" "staging_pods" { # infradoctor: allow-overlap
+  vpc_id     = aws_vpc.staging.id
+  cidr_block = "100.64.0.0/16"
 }
 
 resource "aws_vpc" "dev" {
