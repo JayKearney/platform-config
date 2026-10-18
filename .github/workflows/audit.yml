@@ -1,4 +1,3 @@
-cat > .github/workflows/audit.yml <<'EOF'
 name: Platform audit
 
 on:
@@ -42,4 +41,3 @@ jobs:
         uses: JayKearney/infradoctor@v1
         with:
           args: deps services.yaml
-EOF

@@ -1,4 +1,3 @@
-cat > terraform/network/vpcs.tf <<'EOF'
 # VPC address plan. Every VPC must use its own range so any two can be peered
 # or attached to the Transit Gateway later.
 
@@ -37,4 +36,3 @@ resource "aws_vpc" "shared_services" {
   enable_dns_hostnames = true
   tags                 = { Name = "shared-services" }
 }
-EOF

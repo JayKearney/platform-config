@@ -1,4 +1,3 @@
-cat > terraform/network/sandbox.tf <<'EOF'
 # Sandbox VPC, created with the community VPC module (the common pattern).
 module "sandbox_vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -11,4 +10,3 @@ module "sandbox_vpc" {
   private_subnets = ["10.3.1.0/24", "10.3.2.0/24"]
   public_subnets  = ["10.3.101.0/24", "10.3.102.0/24"]
 }
-EOF
