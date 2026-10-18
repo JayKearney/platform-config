@@ -29,3 +29,8 @@ resource "aws_vpc" "shared_services" {
   enable_dns_hostnames = true
   tags                 = { Name = "shared-services" }
 }
+
+
+resource "aws_vpc" "analytics" {
+  cidr_block = "10.20.0.0/16"
+}
