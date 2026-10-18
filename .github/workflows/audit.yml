@@ -14,18 +14,18 @@ jobs:
     name: Network (VPC overlaps)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Check VPC ranges in Terraform
         uses: JayKearney/infradoctor@v1
         with:
-          args: network check terraform/
+          args: network check terraform/ --known terraform/known-ranges.txt
 
   services:
     name: Services (versions and dependencies)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Build service inventory from Helm values
         id: inventory
