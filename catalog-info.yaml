@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: platform-config
+  description: Example platform configuration (Terraform VPCs, Helm values, service dependencies), audited by infradoctor on every pull request
+  annotations:
+    github.com/project-slug: JayKearney/platform-config
+  tags:
+    - terraform
+    - helm
+spec:
+  type: configuration
+  lifecycle: experimental
+  owner: user:JayKearney
+  dependsOn:
+    - component:infradoctor
